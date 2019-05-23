@@ -137,5 +137,14 @@ class Document extends BaseModel {
     if (!document) return null
     return document.url
   }
+
+  static async deleteDocumentsByPubId (
+    publicationId /* :string */
+  ) /* :Promise<any> */ {
+    const date = new Date().toISOString()
+    return await Document.query()
+      .patch({ deleted: date })
+      .where('publicationId', '=', publicationId)
+  }
 }
 module.exports = { Document }
